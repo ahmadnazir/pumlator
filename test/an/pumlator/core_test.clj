@@ -15,7 +15,7 @@
     (is
      (= {:puml (join ["a -> b : getId"
                       "activate b"])
-         :stack ["b"]}
+         :stack [{:from "a" :to "b" :action "?"}]}
         (sut/reducer {:puml "" :stack nil} (first (p/evaluate "a -> b : getId")))
         ))))
 
@@ -24,8 +24,8 @@
     (is
      (= {:puml (join ["b -> c : getId"
                       "activate c"])
-         :stack ["c" "b"]}
-        (sut/reducer {:puml "" :stack (seq ["b"])} (first (p/evaluate "b -> c : getId")))
+         :stack [{:from "b" :to "c" :action "?"} {:from "a" :to "b" :action "?"}]}
+        (sut/reducer {:puml "" :stack (seq [{:from "a" :to "b" :action "?"}])} (first (p/evaluate "b -> c : getId")))
         ))))
 
 (deftest process-multiple-operations
@@ -35,8 +35,9 @@
                       "deactivate b"
                       "a -> c : getId"
                       "activate c"])
-         :stack ["a"]}
-        (sut/reducer {:puml "" :stack (seq ["b"])} (first (p/evaluate "a -> c : getId")))
+         :stack [{:from "a" :to "c" :action "?"}]
+         }
+        (sut/reducer {:puml "" :stack (seq [{:from "a" :to "b" :action "?"}])} (first (p/evaluate "a -> c : getId")))
         ))))
 
 (deftest pumlate-single-operation

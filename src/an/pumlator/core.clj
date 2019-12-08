@@ -26,21 +26,22 @@
   ;; else
   ;; - empty stack until it does match
   ;; - update the acc (deactivate)
-  ;;
-  ;; TODO stack is a seq of nodes i.e. "a", "b", etc. I might need the full
-  ;; operation.
-  [{puml :puml [x & rest-of-stack :as stack] :stack :as acc} {from :from to :to action :action :as l}]
-  (if (or (nil? x)
-          (= x from))
+  [{puml :puml [prev & stack' :as stack] :stack} current]
+  (if (or (nil? prev)
+          (= (prev :to) (current :from)))
     {:puml (str puml
-                (operation :request from to action))
-     :stack (conj stack to)}
+                (operation :request (current :from) (current :to) (current :action)))
+     :stack (conj stack (assoc current :action "?"))
+     }
     ;; else
     {:puml (str puml
-                (operation :respond x from "?")
-                (operation :request from to action))
-     :stack (conj rest-of-stack from)}
+                (operation :respond (prev :to) (current :from) "?")
+                (operation :request (current :from) (current :to) (current :action)))
+     :stack (conj stack' (assoc current :action "?"))
+     }
     ))
+
+(assoc {} :line "alskdf")
 
 (defn pumlate
   "Generate plantuml from the expression"
@@ -48,7 +49,7 @@
   (let [{puml :puml stack :stack} (reduce reducer {} (p/evaluate expression))]
     (str puml
          ;; cleanup stack
-         (reduce (fn [acc x] (str acc (operation :respond x x "?"))) "" stack))
+         (reduce (fn [acc {from :from to :to action :action}] (str acc (operation :respond to from action))) "" stack))
     ))
 
 (defn parse-args [args]

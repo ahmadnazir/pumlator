@@ -4,8 +4,9 @@ OPERATION := FROM <ws>+ <"->"> <ws>+ TO <ws>+ <":"> <ws>+ ACTION
 
 FROM   := string
 TO     := string
-ACTION := string
+ACTION := line
 
 string := #'[^\s]+'
+line   := #'.+'
 nl     := #'\r?\n' (* new line *)
 ws     := #'\s+'   (* whitespace *)

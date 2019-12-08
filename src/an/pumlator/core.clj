@@ -1,6 +1,7 @@
 (ns an.pumlator.core
   (:require [an.pumlator.stream :as stream]
-            [an.pumlator.parser :as p])
+            [an.pumlator.parser :as p]
+            [clojure.string :as s])
   (:gen-class))
 
 (defn operation
@@ -41,8 +42,6 @@
      }
     ))
 
-(assoc {} :line "alskdf")
-
 (defn pumlate
   "Generate plantuml from the expression"
   [expression]
@@ -52,17 +51,20 @@
          (reduce (fn [acc {from :from to :to action :action}] (str acc (operation :respond to from action))) "" stack))
     ))
 
+(defn indent
+  [puml]
+  (str "@startuml\n\n    " (s/replace puml "\n" "\n    ")  "\n    @enduml"))
+
 (defn parse-args [args]
-  (println "Arguments are ignored: " args))
-
-(defn parse-line [line]
-  (str " :: " line))
-
-(defn print-line [line]
-  (->> line
-       parse-line
-       println))
+  args
+  ;; ignoring arguments
+  )
 
 (defn -main [& args]
   (let [index (parse-args args)]
-    (stream/mapper *in* print-line)))
+    (->> *in*
+         stream/read-all
+         pumlate
+         indent
+         println
+         )))

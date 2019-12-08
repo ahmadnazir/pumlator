@@ -18,3 +18,10 @@
          {:from "b" :to "c" :action "getX"}]
         (p/evaluate "a -> b : getId\nb -> c : getX")
         ))))
+
+(deftest parse-action-with-multiple-words
+  (testing "Parse an action with multiple words"
+    (is
+     (= [{:from "a" :to "b" :action "Do something"}]
+        (p/evaluate "a -> b : Do something")
+        ))))

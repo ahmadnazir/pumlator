@@ -25,7 +25,7 @@
   "Convert operation parse tree to ast"
   [operation]
   (match operation
-         [:OPERATION [:FROM [:string from]] [:TO [:string to]] [:ACTION [:string action]]]
+         [:OPERATION [:FROM [:string from]] [:TO [:string to]] [:ACTION [:line action]]]
          {:from from
           :to to
           :action action}

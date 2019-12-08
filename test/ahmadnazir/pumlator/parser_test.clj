@@ -1,7 +1,7 @@
-(ns an.pumlator.parser-test
-  (:require [an.pumlator.parser :as sut]
+(ns ahmadnazir.pumlator.parser-test
+  (:require [ahmadnazir.pumlator.parser :as sut]
             [clojure.test :refer :all]
-            [an.pumlator.parser :as p]))
+            [ahmadnazir.pumlator.parser :as p]))
 
 
 (deftest parse-one

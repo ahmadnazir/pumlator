@@ -7,7 +7,7 @@ bash build.sh
 ## Run
 
 ```
-./an.pumlator
+./ahmadnazir.pumlator
 ```
 
 ## Render an activity diagram

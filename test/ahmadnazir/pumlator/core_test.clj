@@ -1,8 +1,8 @@
-(ns an.pumlator.core-test
-  (:require [an.pumlator.core :as sut]
+(ns ahmadnazir.pumlator.core-test
+  (:require [ahmadnazir.pumlator.core :as sut]
             [clojure.test :refer :all]
             [clojure.string :as s]
-            [an.pumlator.parser :as p]
+            [ahmadnazir.pumlator.parser :as p]
             ))
 
 (defn join

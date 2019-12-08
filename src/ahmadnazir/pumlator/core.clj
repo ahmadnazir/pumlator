@@ -1,6 +1,6 @@
-(ns an.pumlator.core
-  (:require [an.pumlator.stream :as stream]
-            [an.pumlator.parser :as p]
+(ns ahmadnazir.pumlator.core
+  (:require [ahmadnazir.pumlator.stream :as stream]
+            [ahmadnazir.pumlator.parser :as p]
             [clojure.string :as s])
   (:gen-class))
 

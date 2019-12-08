@@ -8,5 +8,5 @@
                  [org.clojure/core.match "0.3.0-alpha5"]
                  ]
   :repl-options {:init-ns app.core}
-  :main an.pumlator.core
+  :main ahmadnazir.pumlator.core
   )

@@ -1,6 +1,7 @@
-OPERATIONS := (OPERATION <nl>?)*
+OPERATIONS := ((OPERATION | COMMENT) <nl>?)*
 
 OPERATION := FROM <ws>+ <"->"> <ws>+ TO <ws>+ <":"> <ws>+ ACTION
+COMMENT   := <"#">+ <ws>+ line
 
 FROM   := string
 TO     := string

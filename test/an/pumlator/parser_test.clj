@@ -25,3 +25,10 @@
      (= [{:from "a" :to "b" :action "Do something"}]
         (p/evaluate "a -> b : Do something")
         ))))
+
+(deftest parse-comment
+  (testing "Parse a comment"
+    (is
+     (= [{:comment "this is a comment"}]
+        (p/evaluate "# this is a comment")
+        ))))

@@ -29,6 +29,8 @@
          {:from from
           :to to
           :action action}
+         [:COMMENT [:line comment]]
+         {:comment comment}
          :else (throw (Exception. (format "Unable to match %s" operation)))
          )
   )

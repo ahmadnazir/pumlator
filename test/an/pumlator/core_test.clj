@@ -40,6 +40,23 @@
         (sut/reducer {:puml "" :stack (seq [{:from "a" :to "b" :action "?"}])} (first (p/evaluate "a -> c : getId")))
         ))))
 
+(deftest process-comment
+  (testing "a->b [a->c]"
+    (is
+     (= {:puml (join ["note over b : this is a comment"])
+         :stack [{:from "a" :to "b" :action "?"}]
+         }
+        (sut/reducer {:puml "" :stack (seq [{:from "a" :to "b" :action "?"}])} (first (p/evaluate "# this is a comment")))
+        ))))
+
+(deftest split-stack
+  (testing "Splitting a stack"
+    (is
+     (= [[{:from "d"}]
+         [{:from "c"} {:from "b"} {:from "a"}]]
+        (sut/split-stack (seq [{:from "d"} {:from "c"} {:from "b"} {:from "a"}]) {:from "c"})
+        ))))
+
 (deftest pumlate-single-operation
   (testing "a->b"
     (is

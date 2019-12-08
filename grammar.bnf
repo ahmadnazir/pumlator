@@ -1,0 +1,11 @@
+OPERATIONS := (OPERATION <nl>?)*
+
+OPERATION := FROM <ws>+ <"->"> <ws>+ TO <ws>+ <":"> <ws>+ ACTION
+
+FROM   := string
+TO     := string
+ACTION := string
+
+string := #'[^\s]+'
+nl     := #'\r?\n' (* new line *)
+ws     := #'\s+'   (* whitespace *)

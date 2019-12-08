@@ -67,3 +67,19 @@
                ])
         (sut/pumlate "a -> b : getId")
         ))))
+
+(deftest pumlate-nested-operations
+  (testing "a->b"
+    (is
+     (= (join [
+               "a -> b : test"
+               "activate b"
+               "b -> c : test"
+               "activate c"
+               "c -> b : ?"
+               "deactivate c"
+               "b -> a : ?"
+               "deactivate b"
+               ])
+        (sut/pumlate "a -> b : test\nb -> c : test")
+        ))))
